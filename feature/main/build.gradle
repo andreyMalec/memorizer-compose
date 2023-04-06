@@ -1,0 +1,75 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+    namespace 'com.malec.main'
+    def config = rootProject.ext
+    compileSdkVersion config.androidCompileSdkVersion
+    buildToolsVersion config.androidBuildToolsVersion
+
+    defaultConfig {
+        minSdkVersion config.androidMinSdkVersion
+        targetSdkVersion config.androidTargetSdkVersion
+        vectorDrawables.useSupportLibrary = true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion rootProject.ext.kotlinCompilerExtensionVersion
+    }
+}
+
+dependencies {
+    def deps = rootProject.ext.featureDependencies
+
+    implementation project(path: ':core:ui')
+    implementation project(path: ':library:modo-compose')
+
+    implementation deps.hiltAndroid
+    implementation deps.hiltNavigation
+    kapt deps.hiltCompiler
+    kapt deps.hiltAndroidXCompiler
+
+    implementation deps.store
+    implementation deps.viewController
+
+    implementation deps.kotlinStdlib
+    implementation deps.coroutines
+    implementation deps.coreKtx
+    implementation deps.appcompat
+    implementation deps.material
+    implementation deps.composeMaterial
+    implementation deps.lifecycleRuntime
+    implementation deps.lifecycleViewModel
+    implementation deps.lifecycleCompose
+    implementation deps.activityCompose
+    implementation deps.composeUi
+    implementation deps.composeUiPreview
+
+    debugImplementation deps.composeUiTools
+    debugImplementation deps.composeUiTest
+}

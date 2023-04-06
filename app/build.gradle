@@ -1,0 +1,102 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'com.malec.memorizer'
+    def config = rootProject.ext
+    compileSdkVersion config.androidCompileSdkVersion
+    buildToolsVersion config.androidBuildToolsVersion
+    defaultConfig {
+        applicationId "com.malec.memorizer"
+        minSdkVersion config.androidMinSdkVersion
+        targetSdkVersion config.androidTargetSdkVersion
+        versionCode config.appVersionCode
+        versionName config.appVersionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+//            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "memorizer"
+    productFlavors {
+        googlePlay {
+            applicationId "com.malec.memorizer"
+            versionCode config.appVersionCode
+            versionName config.appVersionName
+            buildConfigField "int", "BUILD_TARGET", "1"
+            buildConfigField "String", "CITY", '"spb.json"'
+        }
+        dev {
+            applicationId "com.malec.memorizer.dev"
+            versionCode config.appVersionCode
+            versionName config.appVersionName
+            buildConfigField "int", "BUILD_TARGET", "2"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion rootProject.ext.kotlinCompilerExtensionVersion
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+    def deps = rootProject.ext.featureDependencies
+
+    implementation project(path: ':core:ui')
+    implementation project(path: ':feature:main')
+    implementation project(path: ':library:modo-compose')
+
+    implementation deps.hiltAndroid
+    implementation deps.hiltNavigation
+    kapt deps.hiltCompiler
+    kapt deps.hiltAndroidXCompiler
+
+    implementation deps.store
+    implementation deps.viewController
+
+    implementation deps.kotlinStdlib
+    implementation deps.coroutines
+    implementation deps.coreKtx
+    implementation deps.appcompat
+    implementation deps.material
+    implementation deps.composeMaterial
+    implementation deps.lifecycleRuntime
+    implementation deps.lifecycleViewModel
+    implementation deps.lifecycleCompose
+    implementation deps.activityCompose
+    implementation deps.composeUi
+    implementation deps.composeUiPreview
+
+    debugImplementation deps.composeUiTools
+    debugImplementation deps.composeUiTest
+}

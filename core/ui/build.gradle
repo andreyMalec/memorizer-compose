@@ -1,0 +1,65 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-parcelize'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    def config = rootProject.ext
+    compileSdk config.androidCompileSdkVersion
+    defaultConfig {
+        minSdk config.androidMinSdkVersion
+        targetSdk config.androidTargetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion rootProject.ext.kotlinCompilerExtensionVersion
+    }
+    namespace 'com.malec.ui'
+}
+
+dependencies {
+    def deps = rootProject.ext.featureDependencies
+
+    implementation project(path: ':library:modo-compose')
+
+    implementation deps.hiltAndroid
+    implementation deps.hiltNavigation
+
+    implementation deps.store
+    implementation deps.viewController
+
+    implementation deps.kotlinStdlib
+    implementation deps.coroutines
+    implementation deps.coreKtx
+    implementation deps.appcompat
+    implementation deps.material
+    implementation deps.composeMaterial
+    implementation deps.lifecycleRuntime
+    implementation deps.lifecycleViewModel
+    implementation deps.lifecycleCompose
+    implementation deps.activityCompose
+    implementation deps.composeUi
+    implementation deps.composeUiPreview
+
+    debugImplementation deps.composeUiTools
+    debugImplementation deps.composeUiTest
+}
