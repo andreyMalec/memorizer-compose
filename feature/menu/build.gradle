@@ -1,46 +1,57 @@
-plugins {
-    id 'com.android.library'
-    id 'kotlin-parcelize'
-    id 'org.jetbrains.kotlin.android'
-}
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
+    namespace 'com.malec.menu'
     def config = rootProject.ext
-    compileSdk config.androidCompileSdkVersion
+    compileSdkVersion config.androidCompileSdkVersion
+    buildToolsVersion config.androidBuildToolsVersion
+
     defaultConfig {
-        minSdk config.androidMinSdkVersion
-        targetSdk config.androidTargetSdkVersion
+        minSdkVersion config.androidMinSdkVersion
+        targetSdkVersion config.androidTargetSdkVersion
+        vectorDrawables.useSupportLibrary = true
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+
     buildFeatures {
-        viewBinding true
         compose true
     }
     composeOptions {
         kotlinCompilerExtensionVersion rootProject.ext.kotlinCompilerExtensionVersion
     }
-    namespace 'com.malec.ui'
 }
 
 dependencies {
     def deps = rootProject.ext.featureDependencies
 
+    implementation project(path: ':core:ui')
+
     implementation deps.hiltAndroid
     implementation deps.hiltNavigation
+    kapt deps.hiltCompiler
+    kapt deps.hiltAndroidXCompiler
 
     implementation deps.store
     implementation deps.viewController

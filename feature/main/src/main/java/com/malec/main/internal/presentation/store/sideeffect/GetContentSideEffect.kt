@@ -9,10 +9,7 @@ class GetContentSideEffect @Inject constructor(
 ) : SideEffect<MainState, MainAction>(
     requirement = { _, action -> action is MainAction.ButtonClick },
     effect = { state, _ ->
-        val count = if (state.text.contains("clicked"))
-            state.clickCount + 1
-        else
-            state.clickCount
+        val count = state.clickCount + 1
         val text = "clicked $count"
         MainAction.ContentLoaded(text, count)
     },

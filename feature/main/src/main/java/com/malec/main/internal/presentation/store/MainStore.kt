@@ -1,10 +1,10 @@
 package com.malec.main.internal.presentation.store
 
-import ru.fabit.storecoroutines.*
 import com.malec.main.internal.presentation.store.action.MainAction
 import com.malec.main.internal.presentation.store.reducer.MainReducer
 import com.malec.main.internal.presentation.store.state.MainEvent
 import com.malec.main.internal.presentation.store.state.MainState
+import ru.fabit.storecoroutines.*
 
 class MainStore(
     state: MainState,
@@ -15,7 +15,7 @@ class MainStore(
     bindActionSources: List<BindActionSource<MainState, MainAction>>,
     sideEffects: List<SideEffect<MainState, MainAction>>,
     actionHandlers: List<ActionHandler<MainState, MainAction>>,
-): EventsStore<MainState, MainAction, MainEvent>(
+) : EventsStore<MainState, MainAction, MainEvent>(
     startState = state,
     reducer = reducer,
     errorHandler = errorHandler,

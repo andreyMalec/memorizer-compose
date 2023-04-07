@@ -47,7 +47,6 @@ dependencies {
     def deps = rootProject.ext.featureDependencies
 
     implementation project(path: ':core:ui')
-    implementation project(path: ':library:modo-compose')
 
     implementation deps.hiltAndroid
     implementation deps.hiltNavigation

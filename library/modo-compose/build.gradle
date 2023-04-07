@@ -57,7 +57,6 @@ dependencies {
     implementation deps.activityCompose
     implementation deps.composeUi
     implementation deps.composeUiPreview
-    implementation deps.modo
     implementation("androidx.compose.foundation:foundation:$composeUiVersion")
     implementation("androidx.compose.animation:animation:$composeUiVersion")
 

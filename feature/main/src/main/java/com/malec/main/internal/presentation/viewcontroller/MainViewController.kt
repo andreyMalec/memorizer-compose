@@ -12,12 +12,11 @@ class MainViewController @Inject constructor(
     store: MainStore,
 ) : ViewController<MainState, MainAction>(store) {
 
-    init {
-
-        val a = 0
-    }
-
     fun onButtonClicked() {
         dispatchAction(MainAction.ButtonClick)
+    }
+
+    fun onBackClicked() {
+        dispatchAction(MainAction.Back)
     }
 }
