@@ -15,7 +15,10 @@ import kotlin.system.exitProcess
 
 class MenuScreen(
     private val menuOutput: MenuOutput
-) : Screen() {
+) : Screen<Screen.ScreenParams>() {
+
+    override val arguments: Map<String, Any> = mapOf()
+
     @Composable
     override fun Content() {
         InnerContent()
