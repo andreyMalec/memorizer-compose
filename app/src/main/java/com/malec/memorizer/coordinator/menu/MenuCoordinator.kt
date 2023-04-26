@@ -4,13 +4,20 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.malec.memorizer.coordinator.base.Coordinator
+import com.malec.memorizer.coordinator.main.MainAction
 import com.malec.memorizer.mediator.MenuAndMainMediator
+import com.malec.memorizer.navigation.toComposable
 import com.malec.menu.dependencies.MenuOutput
 import com.malec.menu.view.MenuScreen
+import com.malec.ui.navigation.Screen
 
 class MenuCoordinator(
     private val menuAndMainMediator: MenuAndMainMediator
-) : Coordinator(), MenuOutput {
+) : Coordinator<MenuAction, Screen.ScreenParams>(), MenuOutput {
+    override fun registerMediators() {
+        menuAndMainMediator.registerAsParentCoordinator(this)
+    }
+
     override val startScreen = MenuScreen(this@MenuCoordinator)
 
     override fun registerGraph(
@@ -18,13 +25,11 @@ class MenuCoordinator(
         modifier: Modifier
     ) {
         with(navGraphBuilder) {
-            composable(startScreen.route) {
-                startScreen.Content()
-            }
+            toComposable(startScreen)
         }
     }
 
     override fun openMainScreen(savedCount: Int?) {
-        navController.navigate("${menuAndMainMediator.root}/${savedCount ?: -1}")
+        menuAndMainMediator.sendToChild(MainAction.OpenMainScreen(savedCount ?: -1))
     }
 }

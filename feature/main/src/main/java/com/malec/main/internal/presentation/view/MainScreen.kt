@@ -16,16 +16,27 @@ import com.malec.ui.lifecycle.viewController
 import com.malec.ui.navigation.Screen
 import com.malec.ui.theme.MemorizercomposeTheme
 
-class MainScreen : Screen() {
+object MainScreen : Screen<MainScreen.MainScreenParams>() {
+
+    class MainScreenParams(key: Int): ScreenParams(key)
+
+    override val arguments: Map<String, Any> = mapOf(
+        "key" to Int
+    )
+
     @Composable
     override fun Content() {
-        InnerContent()
+        println("____, test recomposition MainScreen Content")
+        val viewController: MainViewController = viewController()
+        InnerContent(viewController)
     }
 
     @Composable
     fun InnerContent(
+        viewController2: MainViewController,
         viewController: MainViewController = viewController()
     ) {
+        println("____, viewController2 = ${viewController2.hashCode()}, viewController = ${viewController.hashCode()}")
         MemorizercomposeTheme {
             Surface(
                 modifier = Modifier.fillMaxSize(),
@@ -50,4 +61,5 @@ class MainScreen : Screen() {
             }
         }
     }
+
 }

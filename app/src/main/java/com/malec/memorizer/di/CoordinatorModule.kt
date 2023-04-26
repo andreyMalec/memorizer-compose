@@ -29,7 +29,9 @@ class CoordinatorModule {
 
     @Provides
     @Singleton
-    internal fun provideMainCoordinator(): MainCoordinator = MainCoordinator()
+    internal fun provideMainCoordinator(
+        menuAndMainMediator: MenuAndMainMediator
+    ): MainCoordinator = MainCoordinator(menuAndMainMediator)
 
     @Provides
     @Singleton
@@ -53,7 +55,5 @@ class CoordinatorModule {
 
     @Provides
     @Singleton
-    internal fun provideMainInput(
-        coordinator: MainCoordinator
-    ): MainInput = coordinator
+    internal fun provideMenuAndMainMediator(): MenuAndMainMediator = MenuAndMainMediator()
 }
