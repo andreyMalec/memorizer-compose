@@ -1,7 +1,11 @@
 package com.malec.main.internal.presentation.view
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -14,15 +18,12 @@ import androidx.compose.ui.unit.Dp
 import com.malec.main.internal.presentation.viewcontroller.MainViewController
 import com.malec.ui.lifecycle.viewController
 import com.malec.ui.navigation.Screen
+import com.malec.ui.navigation.ScreenParams
 import com.malec.ui.theme.MemorizercomposeTheme
 
 object MainScreen : Screen<MainScreen.MainScreenParams>() {
 
-    class MainScreenParams(key: Int): ScreenParams(key)
-
-    override val arguments: Map<String, Any> = mapOf(
-        "key" to Int
-    )
+    data class MainScreenParams(val count: Int, val id: String? = null) : ScreenParams(count, id)
 
     @Composable
     override fun Content() {

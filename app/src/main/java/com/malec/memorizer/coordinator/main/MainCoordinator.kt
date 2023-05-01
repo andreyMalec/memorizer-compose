@@ -2,13 +2,12 @@ package com.malec.memorizer.coordinator.main
 
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.Navigator
 import com.malec.main.dependencies.MainOutput
 import com.malec.main.internal.presentation.view.MainScreen
 import com.malec.memorizer.coordinator.base.Coordinator
 import com.malec.memorizer.mediator.Action
 import com.malec.memorizer.mediator.MenuAndMainMediator
-import com.malec.memorizer.navigation.toComposable
+import com.malec.ui.navigation.toComposable
 
 class MainCoordinator(private val menuAndMainMediator: MenuAndMainMediator) :
     Coordinator<MainAction, MainScreen.MainScreenParams>(), MainOutput {
@@ -35,7 +34,14 @@ class MainCoordinator(private val menuAndMainMediator: MenuAndMainMediator) :
     }
 
     private fun openMainScreen(counter: Int = -1) {
-        navController.navigate(startScreen.newInstance(MainScreen.MainScreenParams(counter)))
+        navController.navigate(
+            startScreen.newInstance(
+                MainScreen.MainScreenParams(
+                    counter,
+                    "id_66"
+                )
+            )
+        )
     }
 
     override fun back() {

@@ -3,10 +3,10 @@ package com.malec.memorizer.coordinator.base
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import com.malec.memorizer.mediator.Action
-import com.malec.ui.navigation.Screen
+import com.malec.ui.navigation.ScreenParams
 
 class CoordinatorRegistration(
-    private vararg val coordinators: Coordinator<Action, out Screen.ScreenParams>
+    private vararg val coordinators: Coordinator<Action, out ScreenParams>
 ) {
     val startRoute = coordinators.first().startScreen.route
 
