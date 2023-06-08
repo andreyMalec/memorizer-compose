@@ -5,8 +5,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import com.malec.memorizer.mediator.Action
 import com.malec.ui.navigation.Screen
+import com.malec.ui.navigation.ScreenParams
 
-abstract class Coordinator<out T : Action, P : Screen.ScreenParams>  {
+abstract class Coordinator<out T : Action, P : ScreenParams> {
 
     abstract fun registerMediators()
     open fun receive(action: Action) {

@@ -2,7 +2,7 @@ package com.malec.ui.navigation
 
 import androidx.compose.runtime.Composable
 
-abstract class Screen<T: Screen.ScreenParams> {
+abstract class Screen<T : ScreenParams> {
     @Composable
     abstract fun Content()
 
@@ -14,17 +14,5 @@ abstract class Screen<T: Screen.ScreenParams> {
         return route
     }
 
-    abstract class ScreenParams(private vararg val arguments: Any) {
-        fun toArgumentsStr(): String {
-            var argumentsStr = ""
-            arguments.forEach {
-                argumentsStr += "/${it}"
-            }
-            return argumentsStr
-        }
-    }
-
     val route: String = "Screen#${this::class.qualifiedName}"
-
-    abstract val arguments: Map<String, Any>
 }

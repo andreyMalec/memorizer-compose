@@ -60,4 +60,5 @@ dependencies {
 
     debugImplementation deps.composeUiTools
     debugImplementation deps.composeUiTest
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.8.10"
 }

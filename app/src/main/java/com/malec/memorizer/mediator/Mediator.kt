@@ -1,11 +1,10 @@
 package com.malec.memorizer.mediator
 
-import androidx.navigation.NamedNavArgument
 import com.malec.memorizer.coordinator.base.Coordinator
-import com.malec.ui.navigation.Screen
+import com.malec.ui.navigation.ScreenParams
 
 interface Action
-abstract class Mediator<C1 : Coordinator<Action, out Screen.ScreenParams>, C2 : Coordinator<Action, out Screen.ScreenParams>, A1 : Action, A2 : Action> {
+abstract class Mediator<C1 : Coordinator<Action, out ScreenParams>, C2 : Coordinator<Action, out ScreenParams>, A1 : Action, A2 : Action> {
 
     private var parentCoordinator: C1? = null
     private var childCoordinator: C2? = null
