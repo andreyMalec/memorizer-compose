@@ -4,7 +4,12 @@ import com.malec.main.internal.presentation.store.action.MainAction
 import com.malec.main.internal.presentation.store.reducer.MainReducer
 import com.malec.main.internal.presentation.store.state.MainEvent
 import com.malec.main.internal.presentation.store.state.MainState
-import ru.fabit.storecoroutines.*
+import ru.fabit.storecoroutines.ActionHandler
+import ru.fabit.storecoroutines.ActionSource
+import ru.fabit.storecoroutines.BindActionSource
+import ru.fabit.storecoroutines.ErrorHandler
+import ru.fabit.storecoroutines.EventsStore
+import ru.fabit.storecoroutines.SideEffect
 
 class MainStore(
     state: MainState,

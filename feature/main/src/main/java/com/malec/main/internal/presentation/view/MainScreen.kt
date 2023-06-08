@@ -2,10 +2,9 @@ package com.malec.main.internal.presentation.view
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -14,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.Dp
 import com.malec.main.internal.presentation.viewcontroller.MainViewController
 import com.malec.ui.lifecycle.viewController
 import com.malec.ui.navigation.Screen
@@ -27,40 +25,36 @@ object MainScreen : Screen<MainScreen.MainScreenParams>() {
 
     @Composable
     override fun Content() {
-        println("____, test recomposition MainScreen Content")
-        val viewController: MainViewController = viewController()
-        InnerContent(viewController)
+        InnerContent()
     }
 
     @Composable
     fun InnerContent(
-        viewController2: MainViewController,
         viewController: MainViewController = viewController()
     ) {
-        println("____, viewController2 = ${viewController2.hashCode()}, viewController = ${viewController.hashCode()}")
         MemorizercomposeTheme {
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colors.background
             ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    val state by viewController.renderState()
-                    Button(onClick = { viewController.onButtonClicked() }) {
-                        Text(text = state.text)
-                    }
-                    Spacer(modifier = Modifier.height(Dp(8f)))
+                val state by viewController.renderState()
+                if (state.items.isEmpty())
                     Button(onClick = { viewController.onBackClicked() }) {
-                        Text(text = "Back")
+                        Text(text = "GG WP")
                     }
-                }
+                else
+                    LazyColumn(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        items(state.items, itemContent = { item ->
+                            viewController.questAdapterManager.ItemContent(item)
+                        })
+                    }
                 BackHandler {
                     viewController.onBackClicked()
                 }
             }
         }
     }
-
 }

@@ -73,6 +73,7 @@ dependencies {
     def deps = rootProject.ext.featureDependencies
 
     implementation project(path: ':core:ui')
+    implementation project(path: ':core:domain')
     implementation project(path: ':feature:main')
     implementation project(path: ':feature:menu')
     implementation project(path: ':library:modo-compose')

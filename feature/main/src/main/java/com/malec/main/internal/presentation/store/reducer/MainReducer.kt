@@ -12,14 +12,15 @@ class MainReducer : EventsReducer<MainState, MainAction> {
     ): MainState {
         return when (action) {
             is MainAction.ContentLoaded -> state.copy(
-                text = action.text,
-                clickCount = action.count
+                items = action.items
             )
+
             is MainAction.Error -> state.copy().apply {
                 action.error.message?.let {
                     addEvent(MainEvent.Error(it))
                 }
             }
+
             else -> state.copy()
         }
     }

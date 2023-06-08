@@ -16,6 +16,7 @@ dependencyResolutionManagement {
 rootProject.name = "memorizer-compose"
 include ':app'
 include ':core:ui'
+include ':core:domain'
 include ':feature:main'
 include ':feature:menu'
 include ':library:modo-compose'

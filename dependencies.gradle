@@ -13,7 +13,7 @@ ext {
     modoVersion = '0.7.1'
 
     //не менять - иначе конфликты зависимостей
-    composeMaterialVersion = '1.4.0'
+    composeMaterialVersion = '1.4.3'
     activityComposeVersion = '1.7.0'
     lifecycleVersion = "2.6.1"
 

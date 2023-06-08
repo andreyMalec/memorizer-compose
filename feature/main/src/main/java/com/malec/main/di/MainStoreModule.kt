@@ -5,7 +5,6 @@ import com.malec.main.internal.presentation.store.action.MainAction
 import com.malec.main.internal.presentation.store.actionhandler.BackClickActionHandler
 import com.malec.main.internal.presentation.store.actionsource.InitActionSource
 import com.malec.main.internal.presentation.store.reducer.MainReducer
-import com.malec.main.internal.presentation.store.sideeffect.GetContentSideEffect
 import com.malec.main.internal.presentation.store.state.MainState
 import dagger.Module
 import dagger.Provides
@@ -20,9 +19,8 @@ class MainStoreModule {
 
     @Provides
     @ViewControllerScoped
-    fun provideStore(
+    internal fun provideMainStoreStore(
         backClickActionHandler: BackClickActionHandler,
-        getContentSideEffect: GetContentSideEffect,
         initActionSource: InitActionSource,
         errorHandler: ErrorHandler,
     ): MainStore {
@@ -36,7 +34,6 @@ class MainStoreModule {
             ),
             bindActionSources = listOf(),
             sideEffects = listOf(
-                getContentSideEffect
             ),
             actionHandlers = listOf(backClickActionHandler)
         )

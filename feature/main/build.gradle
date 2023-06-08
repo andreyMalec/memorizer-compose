@@ -47,6 +47,7 @@ dependencies {
     def deps = rootProject.ext.featureDependencies
 
     implementation project(path: ':core:ui')
+    implementation project(path: ':core:domain')
 
     implementation deps.hiltAndroid
     implementation deps.hiltNavigation
