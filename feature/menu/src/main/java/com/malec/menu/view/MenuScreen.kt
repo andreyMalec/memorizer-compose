@@ -1,6 +1,10 @@
 package com.malec.menu.view
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -9,13 +13,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import com.malec.menu.dependencies.MenuOutput
+import com.malec.ui.navigation.EmptyScreenParams
 import com.malec.ui.navigation.Screen
 import com.malec.ui.theme.MemorizercomposeTheme
 import kotlin.system.exitProcess
 
 class MenuScreen(
     private val menuOutput: MenuOutput
-) : Screen() {
+) : Screen<EmptyScreenParams>() {
+
     @Composable
     override fun Content() {
         InnerContent()

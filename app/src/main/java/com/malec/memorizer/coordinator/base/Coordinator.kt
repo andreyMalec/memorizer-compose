@@ -3,12 +3,20 @@ package com.malec.memorizer.coordinator.base
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import com.malec.memorizer.mediator.Action
 import com.malec.ui.navigation.Screen
+import com.malec.ui.navigation.ScreenParams
 
-abstract class Coordinator {
+abstract class Coordinator<out T : Action, P : ScreenParams> {
+
+    abstract fun registerMediators()
+    open fun receive(action: Action) {
+        throw Exception("I can't receive action")
+    }
+
     protected lateinit var navController: NavController
 
-    abstract val startScreen: Screen
+    abstract val startScreen: Screen<P>
 
     abstract fun registerGraph(
         navGraphBuilder: NavGraphBuilder,

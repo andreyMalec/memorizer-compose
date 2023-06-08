@@ -1,7 +1,11 @@
 package com.malec.main.internal.presentation.view
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -14,18 +18,26 @@ import androidx.compose.ui.unit.Dp
 import com.malec.main.internal.presentation.viewcontroller.MainViewController
 import com.malec.ui.lifecycle.viewController
 import com.malec.ui.navigation.Screen
+import com.malec.ui.navigation.ScreenParams
 import com.malec.ui.theme.MemorizercomposeTheme
 
-class MainScreen : Screen() {
+object MainScreen : Screen<MainScreen.MainScreenParams>() {
+
+    data class MainScreenParams(val count: Int, val id: String? = null) : ScreenParams(count, id)
+
     @Composable
     override fun Content() {
-        InnerContent()
+        println("____, test recomposition MainScreen Content")
+        val viewController: MainViewController = viewController()
+        InnerContent(viewController)
     }
 
     @Composable
     fun InnerContent(
+        viewController2: MainViewController,
         viewController: MainViewController = viewController()
     ) {
+        println("____, viewController2 = ${viewController2.hashCode()}, viewController = ${viewController.hashCode()}")
         MemorizercomposeTheme {
             Surface(
                 modifier = Modifier.fillMaxSize(),
@@ -50,4 +62,5 @@ class MainScreen : Screen() {
             }
         }
     }
+
 }

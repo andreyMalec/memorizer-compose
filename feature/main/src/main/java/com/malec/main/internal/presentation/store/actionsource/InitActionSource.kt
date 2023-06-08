@@ -1,8 +1,9 @@
 package com.malec.main.internal.presentation.store.actionsource
 
 import androidx.lifecycle.SavedStateHandle
-import com.malec.main.dependencies.MainInput.Companion.key
 import com.malec.main.internal.presentation.store.action.MainAction
+import com.malec.main.internal.presentation.view.MainScreen
+import com.malec.ui.navigation.ScreenParams.Companion.construct
 import kotlinx.coroutines.flow.flow
 import ru.fabit.storecoroutines.ActionSource
 import javax.inject.Inject
@@ -12,7 +13,9 @@ class InitActionSource @Inject constructor(
 ) : ActionSource<MainAction>(
     source = {
         flow {
-            val count = savedStateHandle.get<Int>(key) ?: throw IllegalArgumentException()
+            val params = construct<MainScreen.MainScreenParams>(savedStateHandle)
+            val count = params.count
+            println("______ $params")
             if (count > 0)
                 emit(MainAction.ContentLoaded("Continue from $count", count))
         }
